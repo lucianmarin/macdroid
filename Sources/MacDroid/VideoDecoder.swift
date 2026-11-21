@@ -89,7 +89,16 @@ public final class H264SampleBufferBuilder {
             sampleSizeArray: &sampleSize,
             sampleBufferOut: &sampleBuffer
         )
-        guard sampleStatus == noErr else { return nil }
+        guard sampleStatus == noErr, let sampleBuffer else { return nil }
+        // Display frames immediately rather than waiting on AVSampleBufferDisplayLayer's timebase.
+        if let attachments = CMSampleBufferGetSampleAttachmentsArray(sampleBuffer, createIfNecessary: true) {
+            let dict = unsafeBitCast(CFArrayGetValueAtIndex(attachments, 0), to: CFMutableDictionary.self)
+            CFDictionarySetValue(
+                dict,
+                Unmanaged.passUnretained(kCMSampleAttachmentKey_DisplayImmediately).toOpaque(),
+                Unmanaged.passUnretained(kCFBooleanTrue).toOpaque()
+            )
+        }
         return sampleBuffer
     }
 

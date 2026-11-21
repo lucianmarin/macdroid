@@ -40,10 +40,11 @@ final class StreamNSView: NSView {
     override var acceptsFirstResponder: Bool { true }
 
     func enqueue(_ sampleBuffer: CMSampleBuffer) {
-        if displayLayer.status == .failed {
-            displayLayer.flush()
+        let renderer = displayLayer.sampleBufferRenderer
+        if renderer.status == .failed || renderer.requiresFlushToResumeDecoding {
+            renderer.flush()
         }
-        displayLayer.enqueue(sampleBuffer)
+        renderer.enqueue(sampleBuffer)
     }
 
     private func devicePoint(from event: NSEvent) -> (Int32, Int32)? {
