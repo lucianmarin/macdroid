@@ -1,5 +1,7 @@
 # MacDroid (`Android.app`)
 
+![screenshot](screenshot.jpg)
+
 A pure-Swift macOS 14+ app for wirelessly mirroring, controlling, and running Android Desktop Mode on your Mac over Wi-Fi — powered by `scrcpy-server` v3.1 with **no `adb` binary required**.
 
 ## Features
