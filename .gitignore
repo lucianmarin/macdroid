@@ -1,0 +1,8 @@
+.build/
+.swiftpm/
+.DS_Store
+*.xcodeproj
+xcuserdata/
+MacDroid.app/
+Android.app/
+Sources/MacDroid/Resources/scrcpy-server
